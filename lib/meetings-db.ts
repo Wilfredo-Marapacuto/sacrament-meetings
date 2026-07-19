@@ -7,6 +7,8 @@ import type {
   WardBusinessItem,
 } from "./types";
 
+const ITEMS_PER_PAGE = 5;
+
 interface MeetingRow {
   id: number;
   date: string;
@@ -54,60 +56,93 @@ function mapMeeting(row: MeetingRow): SacramentMeeting {
 }
 
 export async function getMeetings(
-  date?: string | null
+  query: string = "",
+  currentPage: number = 1,
+): Promise<SacramentMeeting[]> {
+  const sql = getSql();
+  const searchTerm = `%${query}%`;
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  const rows = await sql`
+    SELECT
+      id,
+      date::text,
+      meeting_type,
+      presiding,
+      conducting,
+      announcements,
+      opening_hymn,
+      opening_prayer,
+      ward_business,
+      stake_business,
+      sacrament_hymn,
+      speakers,
+      closing_hymn,
+      closing_prayer
+    FROM meetings
+    WHERE
+      presiding ILIKE ${searchTerm}
+      OR conducting ILIKE ${searchTerm}
+      OR meeting_type ILIKE ${searchTerm}
+      OR speakers::text ILIKE ${searchTerm}
+    ORDER BY date DESC
+    LIMIT ${ITEMS_PER_PAGE}
+    OFFSET ${offset}
+  `;
+
+  return (rows as MeetingRow[]).map(mapMeeting);
+}
+
+export async function getMeetingsTotalPages(
+  query: string = "",
+): Promise<number> {
+  const sql = getSql();
+  const searchTerm = `%${query}%`;
+
+  const rows = await sql`
+    SELECT COUNT(*) AS count
+    FROM meetings
+    WHERE
+      presiding ILIKE ${searchTerm}
+      OR conducting ILIKE ${searchTerm}
+      OR meeting_type ILIKE ${searchTerm}
+      OR speakers::text ILIKE ${searchTerm}
+  `;
+
+  return Math.ceil(Number(rows[0].count) / ITEMS_PER_PAGE);
+}
+
+export async function getMeetingsByDate(
+  date: string,
 ): Promise<SacramentMeeting[]> {
   const sql = getSql();
 
-  let rows;
-
-  if (date) {
-    rows = await sql`
-      SELECT
-        id,
-        date::text,
-        meeting_type,
-        presiding,
-        conducting,
-        announcements,
-        opening_hymn,
-        opening_prayer,
-        ward_business,
-        stake_business,
-        sacrament_hymn,
-        speakers,
-        closing_hymn,
-        closing_prayer
-      FROM meetings
-      WHERE date = ${date}
-      ORDER BY date ASC
-    `;
-  } else {
-    rows = await sql`
-      SELECT
-        id,
-        date::text,
-        meeting_type,
-        presiding,
-        conducting,
-        announcements,
-        opening_hymn,
-        opening_prayer,
-        ward_business,
-        stake_business,
-        sacrament_hymn,
-        speakers,
-        closing_hymn,
-        closing_prayer
-      FROM meetings
-      ORDER BY date ASC
-    `;
-  }
+  const rows = await sql`
+    SELECT
+      id,
+      date::text,
+      meeting_type,
+      presiding,
+      conducting,
+      announcements,
+      opening_hymn,
+      opening_prayer,
+      ward_business,
+      stake_business,
+      sacrament_hymn,
+      speakers,
+      closing_hymn,
+      closing_prayer
+    FROM meetings
+    WHERE date = ${date}
+    ORDER BY date ASC
+  `;
 
   return (rows as MeetingRow[]).map(mapMeeting);
 }
 
 export async function getMeetingById(
-  id: number
+  id: number,
 ): Promise<SacramentMeeting | null> {
   const sql = getSql();
 
@@ -137,4 +172,33 @@ export async function getMeetingById(
   }
 
   return mapMeeting(rows[0] as MeetingRow);
+}
+
+export async function addMeeting(
+  data: Omit<SacramentMeeting, "id">,
+): Promise<SacramentMeeting> {
+  void data;
+  throw new Error(
+    "addMeeting: database implementation coming in Week 04",
+  );
+}
+
+export async function updateMeeting(
+  id: number,
+  updates: Partial<SacramentMeeting>,
+): Promise<SacramentMeeting | null> {
+  void id;
+  void updates;
+  throw new Error(
+    "updateMeeting: database implementation coming in Week 04",
+  );
+}
+
+export async function deleteMeeting(
+  id: number,
+): Promise<boolean> {
+  void id;
+  throw new Error(
+    "deleteMeeting: database implementation coming in Week 04",
+  );
 }

@@ -1,8 +1,18 @@
-import { getMeetings } from "@/lib/meetings-db";
+import {
+  getMeetings,
+  getMeetingsByDate,
+} from "@/lib/meetings-db";
 
 export async function GET(request: Request) {
-  const date = new URL(request.url).searchParams.get("date");
-  const meetings = await getMeetings(date);
+  const { searchParams } = new URL(request.url);
+  const date = searchParams.get("date");
+
+  if (date) {
+    const meetings = await getMeetingsByDate(date);
+    return Response.json(meetings);
+  }
+
+  const meetings = await getMeetings();
 
   return Response.json(meetings);
 }
