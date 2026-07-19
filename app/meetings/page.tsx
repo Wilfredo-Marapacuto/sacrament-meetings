@@ -1,26 +1,7 @@
-import { headers } from "next/headers";
 import MeetingCard from "@/components/MeetingCard";
-import type { SacramentMeeting } from "@/lib/types";
+import { getMeetings } from "@/lib/meetings-db";
 
-async function getMeetings(): Promise<SacramentMeeting[]> {
-  const headerList = await headers();
-  const host = headerList.get("host");
-  const protocol = headerList.get("x-forwarded-proto") ?? "http";
-
-  if (!host) {
-    throw new Error("Unable to determine the application host.");
-  }
-
-  const response = await fetch(`${protocol}://${host}/api/meetings`, {
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
-    throw new Error("Unable to load sacrament meetings.");
-  }
-
-  return response.json() as Promise<SacramentMeeting[]>;
-}
+export const dynamic = "force-dynamic";
 
 export default async function MeetingsPage() {
   const meetings = await getMeetings();

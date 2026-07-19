@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 import { getMeetings } from "@/lib/meetings-db";
 
-export default function CurrentMeetingPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CurrentMeetingPage() {
   const today = new Date();
   const dayOfWeek = today.getDay();
 
@@ -10,7 +12,8 @@ export default function CurrentMeetingPage() {
 
   const isoDate = sunday.toISOString().split("T")[0];
 
-  const meeting = getMeetings(isoDate)[0];
+  const meetings = await getMeetings(isoDate);
+  const meeting = meetings[0];
 
   if (meeting) {
     redirect(`/meetings/${meeting.id}`);

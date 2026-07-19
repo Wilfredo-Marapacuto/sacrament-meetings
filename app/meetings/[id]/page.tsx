@@ -1,7 +1,6 @@
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import MeetingDetail from "@/components/MeetingDetail";
-import type { SacramentMeeting } from "@/lib/types";
+import { getMeetingById } from "@/lib/meetings-db";
 
 interface MeetingPageProps {
   params: Promise<{
@@ -9,38 +8,23 @@ interface MeetingPageProps {
   }>;
 }
 
-async function getMeeting(id: string): Promise<SacramentMeeting> {
-  const headerList = await headers();
-  const host = headerList.get("host");
-  const protocol = headerList.get("x-forwarded-proto") ?? "http";
-
-  if (!host) {
-    throw new Error("Unable to determine the application host.");
-  }
-
-  const response = await fetch(
-    `${protocol}://${host}/api/meetings/${id}`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  if (response.status === 404) {
-    notFound();
-  }
-
-  if (!response.ok) {
-    throw new Error("Unable to load the sacrament meeting.");
-  }
-
-  return response.json() as Promise<SacramentMeeting>;
-}
+export const dynamic = "force-dynamic";
 
 export default async function MeetingPage({
   params,
 }: MeetingPageProps) {
   const { id } = await params;
-  const meeting = await getMeeting(id);
+  const meetingId = Number(id);
+
+  if (Number.isNaN(meetingId)) {
+    notFound();
+  }
+
+  const meeting = await getMeetingById(meetingId);
+
+  if (!meeting) {
+    notFound();
+  }
 
   return (
     <main>
