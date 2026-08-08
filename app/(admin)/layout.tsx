@@ -1,15 +1,17 @@
-import type { ReactNode } from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/auth";
 
-interface AdminLayoutProps {
-  children: ReactNode;
-}
-
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
-}: AdminLayoutProps) {
-  return (
-    <section>
-      {children}
-    </section>
-  );
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/login");
+  }
+
+  return <>{children}</>;
 }
