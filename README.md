@@ -1,37 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sacrament Meeting Planner
 
-## Getting Started
+Sacrament Meeting Planner is a full-stack web application designed to help bishoprics and branch leaders organize and review sacrament meeting programs.
 
-First, run the development server:
+The application provides a centralized place to view current and previous sacrament meetings, search meeting records, review meeting details, and securely access administrative functionality.
+
+## Team Members
+
+- Wilfredo Marapacuto
+
+This project was completed individually with instructor authorization for team coursework.
+
+## Technologies
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Next.js App Router
+- Auth.js / NextAuth
+- Neon PostgreSQL
+- Vercel
+
+## Live Application
+
+Production deployment:
+
+https://sacrament-meetings-two.vercel.app
+
+## GitHub Repository
+
+https://github.com/Wilfredo-Marapacuto/sacrament-meetings
+
+## Main Features
+
+- Responsive sacrament meeting interface
+- Current and previous meeting views
+- Dynamic meeting data stored in PostgreSQL
+- Meeting search and pagination
+- Individual meeting detail pages
+- Administrator authentication
+- Protected administrative routes
+- Reusable React components
+- Next.js App Router architecture
+- API Route Handlers
+- Production deployment through Vercel
+
+## Authentication
+
+Administrator authentication is implemented using Auth.js / NextAuth with the Credentials provider.
+
+The administrator login page is available at:
+
+https://sacrament-meetings-two.vercel.app/login
+
+Administrative routes are protected and require a valid authenticated session.
+
+## Database
+
+The application uses a PostgreSQL database hosted by Neon.
+
+Meeting information is retrieved dynamically from the database rather than being hardcoded in the user interface.
+
+The database connection is configured through the `DATABASE_URL` environment variable.
+
+## API Routes
+
+### Get Meetings
+
+`GET /api/meetings`
+
+Returns sacrament meeting records from the PostgreSQL database.
+
+An optional `date` query parameter can be used to retrieve meetings for a specific date.
+
+Example:
+
+`GET /api/meetings?date=2026-06-21`
+
+### Get Meeting by ID
+
+`GET /api/meetings/[id]`
+
+Returns an individual sacrament meeting by its database ID.
+
+### Authentication
+
+`/api/auth/[...nextauth]`
+
+Handles administrator authentication through Auth.js / NextAuth.
+
+## Local Setup
+
+Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-Preview deployment trigger.
+git clone https://github.com/Wilfredo-Marapacuto/sacrament-meetings.git
