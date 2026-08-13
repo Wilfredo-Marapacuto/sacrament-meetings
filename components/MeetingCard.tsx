@@ -13,7 +13,7 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
           {meeting.date}
         </h2>
 
-        <span className="rounded bg-blue-100 px-3 py-1 text-sm font-medium text-blue-700 capitalize">
+        <span className="rounded bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 capitalize">
           {meeting.meetingType}
         </span>
       </div>
@@ -35,7 +35,7 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
 
       <Link
         href={`/meetings/${meeting.id}`}
-        className="mt-5 inline-block rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700"
+        className="mt-5 inline-block rounded bg-blue-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-900"
       >
         View Meeting
       </Link>

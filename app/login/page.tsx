@@ -31,7 +31,7 @@ export default function LoginPage() {
           Administrator Login
         </h1>
 
-        <p className="mt-2 text-slate-600">
+        <p className="mt-2 text-slate-700">
           Sign in to manage sacrament meeting programs.
         </p>
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
               name="username"
               type="email"
               required
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-800 focus:ring-2 focus:ring-blue-200"
             />
           </div>
 
@@ -66,19 +66,19 @@ export default function LoginPage() {
               name="password"
               type="password"
               required
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-slate-900 outline-none focus:border-blue-800 focus:ring-2 focus:ring-blue-200"
             />
           </div>
 
           {error && (
-            <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+            <p className="rounded-md bg-red-50 p-3 text-sm text-red-800">
               {error}
             </p>
           )}
 
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+            className="w-full rounded-md bg-blue-800 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-900"
           >
             Sign In
           </button>

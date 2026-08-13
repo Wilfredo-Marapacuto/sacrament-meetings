@@ -37,12 +37,12 @@ export default function Pagination({
           Previous
         </Link>
       ) : (
-        <span className="rounded-lg bg-slate-200 px-4 py-2 font-medium text-slate-500">
+        <span className="rounded-lg bg-slate-200 px-4 py-2 font-medium text-slate-700">
           Previous
         </span>
       )}
 
-      <span className="text-sm text-slate-600">
+      <span className="text-sm text-slate-700">
         Page {currentPage} of {totalPages}
       </span>
 
@@ -54,7 +54,7 @@ export default function Pagination({
           Next
         </Link>
       ) : (
-        <span className="rounded-lg bg-slate-200 px-4 py-2 font-medium text-slate-500">
+        <span className="rounded-lg bg-slate-200 px-4 py-2 font-medium text-slate-700">
           Next
         </span>
       )}
