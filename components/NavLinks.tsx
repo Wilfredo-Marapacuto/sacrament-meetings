@@ -9,7 +9,7 @@ export default function NavLinks() {
   const linkClass = (path: string) =>
     `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
       pathname === path
-        ? "bg-blue-600 text-white"
+        ? "bg-blue-800 text-white"
         : "text-slate-700 hover:bg-slate-100"
     }`;
 
