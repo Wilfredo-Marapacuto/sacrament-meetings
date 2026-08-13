@@ -44,6 +44,8 @@ https://github.com/Wilfredo-Marapacuto/sacrament-meetings
 - Next.js App Router architecture
 - API Route Handlers
 - Production deployment through Vercel
+- Loading, error, and empty states
+- Accessibility-focused color contrast
 
 ## Authentication
 
@@ -53,7 +55,9 @@ The administrator login page is available at:
 
 https://sacrament-meetings-two.vercel.app/login
 
-Administrative routes are protected and require a valid authenticated session.
+Administrative routes require a valid authenticated session.
+
+Authentication credentials are configured through environment variables and are not stored directly in the source code.
 
 ## Database
 
@@ -91,7 +95,7 @@ Handles administrator authentication through Auth.js / NextAuth.
 
 ## Local Setup
 
-Clone the repository:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/Wilfredo-Marapacuto/sacrament-meetings.git
