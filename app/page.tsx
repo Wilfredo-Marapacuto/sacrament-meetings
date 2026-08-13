@@ -19,7 +19,7 @@ export default function HomePage() {
           <div className="flex gap-4">
             <Link
               href="/meetings"
-              className="rounded bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+              className="rounded bg-blue-800 px-6 py-3 font-semibold text-white hover:bg-blue-900"
             >
               View Meetings
             </Link>
